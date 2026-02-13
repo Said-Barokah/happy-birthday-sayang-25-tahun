@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine? 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="lock-screen"></div>
+    <div id="app" class="container" style="display: none;">
+        <h1>
+            Selamat Ulang Tahun, Sayangku 🎂💖<br>
+            Maukah kamu menjadi istriku? 💍✨<br>
+            Tekan merah kalau ragu…😭
+            Tekan hijau kalau siap selamanya 💚✨
+        </h1>
+
+        <div class="gif-container">
+            <img id="cat-gif" src="https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif"
+                alt="cute character">
+        </div>
+
+        <div class="buttons">
+            <button id="yes-btn" onclick="handleYesClick()">Mau</button>
+            <button id="no-btn" onclick="handleNoClick()">Gak ah capek ama kakak</button>
+        </div>
+        <div id="tease-toast"></div>
+        <p id="final-text" class="hidden-text">
+            Udah gak bisa klik merah lagi nih 😜💚
+        </p>
+    </div>
+
+    <audio id="bg-music" loop autoplay muted>
+        <source src="music/beabadoobee - Glue Song (Lyrics).mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const nowUTC = Date.now(); // milidetik UTC sekarang
+
+            // Target: 14 Feb 2025 00:00 WIB = 13 Feb 2025 17:00 UTC
+            const targetUTC = Date.UTC(2026, 1, 12, 17, 0, 0);
+
+            console.log("NOW UTC:", new Date(nowUTC).toUTCString());
+            console.log("TARGET UTC:", new Date(targetUTC).toUTCString());
+            console.log("IS LOCKED:", nowUTC < targetUTC);
+
+            const lockScreen = document.getElementById("lock-screen");
+            const app = document.getElementById("app");
+
+            if (nowUTC < targetUTC) {
+                lockScreen.innerHTML = `
+            <div style="
+                height:100vh;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                text-align:center;
+                background:#ffe4e6;
+                font-family:sans-serif;
+                padding:20px;
+            ">
+                <div>
+                    <h1 style="color:#e11d48;">🔒 Belum Waktunya Dibuka</h1>
+                    <p>
+                        Surprise ini hanya bisa dibuka mulai<br>
+                        <strong>14 Februari 2025 💕</strong><br><br>
+                        Sekarang masih tanggal ${new Date(nowUTC).toLocaleDateString('id-ID')} 😜
+                    </p>
+                </div>
+            </div>
+        `;
+                app.style.display = "none";
+            } else {
+                alert("Yeyyy! Sekarang sudah 14 Februari 2026 💖 Buka surprise-nya yaa sayang!");
+
+                lockScreen.style.display = "none";
+                app.style.setProperty("display", "block", "important");
+            }
+
+        });
+    </script>
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>
